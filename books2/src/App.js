@@ -1,18 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import getBooks from './service'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import getBooks from "./service";
 
-function App() {
-  const books = getBooks()
+const App = () => {
+  let [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    getBooks().then(response => {
+      setBooks(response);
+    });
+  }, []);
 
   return (
     <div>
-      <header>
-        books.
-      </header>
+      {books.map(book => (
+        <div key={book.id}>{book.id}</div>
+      ))}
     </div>
   );
-}
+};
 
 export default App;
