@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import getBooks from "./service";
+import React, { useState, useEffect } from "react"
+import "./App.css"
+import getBooks from "./service"
 
 const App = () => {
-  let [books, setBooks] = useState([]);
+  // [state, stateUpdater] === [value, methodToSetValue]
+  let [books, setBooks] = useState([])
 
-  useEffect(() => {
-    getBooks().then(response => {
-      setBooks(response);
-    });
-  }, []);
+  // after finish mounting the component 
+  useEffect(async () => {
+    const { items } = await getBooks()
+    setBooks(items)
+  }, [])
+
+  const save = () => {
+    
+  }
 
   return (
     <div>
-      {books.map(book => (
+      {books && books.map(book => (
         <div key={book.id}>{book.id}</div>
       ))}
     </div>
